@@ -74,7 +74,7 @@ public class Graph<V>
     }
 
     //to be used internally
-    public bool AddEdge(Vertex<V> v1, Vertex<V> v2, int weight)
+    private bool AddEdge(Vertex<V> v1, Vertex<V> v2, int weight)
     {
         bool canAddAsNeighbors1 = v1.AddNeighbor(v2, weight);
         bool canAddAsNeighbors2 = v2.AddNeighbor(v1, weight);
@@ -91,6 +91,7 @@ public class Graph<V>
         if(AddEdge(_dataDictionary[v1], _dataDictionary[v2], weight))
         {
             OnAddEdge?.Invoke(v1, v2, weight);
+
             return true;
         }
         return false;
@@ -131,15 +132,13 @@ public class Graph<V>
     }
 
     public List<V> FindShortestPath(V v1, V v2)
-    {
-        throw new NotImplementedException();
-        /*
+    {        
         List<Vertex<V>> path = Dijkstra<V>.Run(_dataDictionary[v1], _dataDictionary[v2]); //checks need to be made to check if vertices exist in Dictionary!
         List<V> dataPath = new List<V>();
         foreach(Vertex<V> v in path)
         {
             dataPath.Add(v.Data);
         }
-        return dataPath;*/
+        return dataPath;
     }
 }

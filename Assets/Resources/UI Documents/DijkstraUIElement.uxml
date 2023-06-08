@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/dijkstra.uss?fileID=7433441132597879392&amp;guid=3e0b22e51c40dfb49a2d1c655e0603aa&amp;type=3#dijkstra" />
+    <ui:VisualElement name="dijkstra-element" class="dijkstra-element">
+        <ui:Button text="Run Algorithm" name="run-button" enable-rich-text="false" class="run-button" />
+        <ui:VisualElement name="start-box" class="start-box select-box" />
+        <ui:VisualElement name="end-box" class="end-box select-box" />
+        <ui:VisualElement name="ghost-icon" class="ghost-icon" />
+    </ui:VisualElement>
+</ui:UXML>

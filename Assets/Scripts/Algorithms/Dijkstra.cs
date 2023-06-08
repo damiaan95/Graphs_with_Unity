@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dijkstra<V>
+public class Dijkstra<V> : Algorithm
 {
+    public override string Name => "Dijkstra";
+
     public static List<Vertex<V>> Run(Vertex<V> start, Vertex<V> goal)
     {
-        throw new NotImplementedException();
-       /* Dictionary<Vertex<V>, List<Vertex<V>>> paths = new Dictionary<Vertex<V>, List<Vertex<V>>>();
+        //throw new NotImplementedException();
+        Dictionary<Vertex<V>, List<Vertex<V>>> paths = new Dictionary<Vertex<V>, List<Vertex<V>>>();
         Dictionary<Vertex<V>, int> distances = new Dictionary<Vertex<V>, int>();
 
         paths.Add(start, new List<Vertex<V>>() { start });
@@ -23,13 +25,13 @@ public class Dijkstra<V>
 
             foreach (KeyValuePair<Vertex<V>, int> p in distances)
             {
-                foreach (Vertex<V> u in p.Key.Neighbors)//edge is used here to get the weight. If used for nothing else, we can replace neighbors dictionary to store only a number.
+                foreach (KeyValuePair<Vertex<V>,int> u in p.Key.Neighbors)//edge is used here to get the weight. If used for nothing else, we can replace neighbors dictionary to store only a number.
                 {
-                    if (!distances.ContainsKey(u) && p.Value + 1 <= dist)
+                    if (!distances.ContainsKey(u.Key) && p.Value + u.Value <= dist)
                     {
-                        nextVertex = u;
+                        nextVertex = u.Key;
                         lastVertex = p.Key;
-                        dist = p.Value + 1;
+                        dist = p.Value + u.Value;
                     }
                 }
             }
@@ -45,6 +47,6 @@ public class Dijkstra<V>
                 return new List<Vertex<V>>(); // in this case, the goal cannot be reached.
             }
         }
-        return paths[goal];*/
+        return paths[goal];
     }
 }

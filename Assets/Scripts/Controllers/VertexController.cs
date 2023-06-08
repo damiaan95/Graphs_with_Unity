@@ -9,6 +9,8 @@ public class VertexController : GraphElement
     public static VertexStateManager stateManager;
     private LineRenderer lr;
 
+    private VertexAppearance _appearance;
+
     private void Start()
     {
         InitializeVertex();
@@ -34,10 +36,9 @@ public class VertexController : GraphElement
         VertexController v;
 
         v = hit.transform.gameObject.GetComponent<VertexController>(); // exception handling here
-        //Debug.Log(v);
+        
         if(v != null)
         {
-            // create an edge between these two vertices.
             GraphManager.Instance.AddEdge(this, v, 1);
         }
         ResetLine();
@@ -67,11 +68,11 @@ public class VertexController : GraphElement
         if(pointerData.pointerId == -1)
         {
             Debug.Log("LeftClick on Vertex");
+            GraphManager.Instance.SelectVertex(this);
         } else if(pointerData.pointerId == -2)
         {
             Debug.Log("RightClick on Vertex");
             GraphManager.Instance.RemoveVertex(this);
-            //DeleteVertex();
         }
     }
 
@@ -96,4 +97,22 @@ public class VertexController : GraphElement
     {
         Destroy(gameObject);
     }
+
+    internal void SetAppearance(VertexAppearance appearance)
+    {
+        _appearance = appearance;
+        if (appearance.Equals(VertexAppearance.NORMAL)) 
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        } else if (appearance.Equals(VertexAppearance.SELECTED)) 
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow;
+        }
+    }
+}
+
+public enum VertexAppearance
+{
+    NORMAL,
+    SELECTED
 }

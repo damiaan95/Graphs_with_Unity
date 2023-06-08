@@ -1,14 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class GraphManager
 {
     public Graph<VertexController> Graph { get; private set; }
     public List<EdgeController> EdgeControllers { get; private set; }
+
+    private VertexController[] selectedVertices = new VertexController[2];
 
     private static GraphManager instance;
     public static GraphManager Instance 
@@ -23,7 +23,7 @@ public class GraphManager
         }
     }
 
-    public GraphManager()
+    private GraphManager()
     {
         EdgeControllers = new List<EdgeController>();
         Graph = new Graph<VertexController>(new List<Vertex<VertexController>>());
@@ -62,5 +62,56 @@ public class GraphManager
     internal void RemoveVertex(VertexController vertexController)
     {
         Graph.RemoveVertex(vertexController);
+    }
+
+    internal void SelectVertex(VertexController vertexController)
+    {
+        if(selectedVertices.Contains(vertexController))
+        {
+            Debug.Log("vertex controller " + vertexController + " already selected");
+            int i = selectedVertices[0].Equals(vertexController) ? 0 : 1;
+            selectedVertices[i] = null;
+            vertexController.SetAppearance(VertexAppearance.NORMAL);
+            return;
+        }
+
+        if (selectedVertices[0] != null && selectedVertices[1] != null)
+        {
+            Debug.Log("cannot select more that two vertices");
+            return;
+        }
+
+        int index = selectedVertices[0] == null ? 0 : 1;
+        Debug.Log("vertex controller selected at index " + index);
+        selectedVertices[index] = vertexController;
+        vertexController.SetAppearance(VertexAppearance.SELECTED);
+    }
+
+    internal void RunAlgorithm()
+    {
+        if (selectedVertices[0] == null || selectedVertices[1] == null)
+        {
+            Debug.Log("cannot run Dijkstra without selected vertices");
+            return;
+        }
+
+        EdgeControllers.ForEach(e =>
+        {
+            e.GetComponent<LineRenderer>().startColor = Color.white;
+            e.GetComponent<LineRenderer>().endColor = Color.white;
+        });
+
+        List<VertexController> path = Graph.FindShortestPath(selectedVertices[0], selectedVertices[1]);
+      
+        for(int i = 0; i < path.Count - 1; i++)
+        {
+            VertexController from = path[i];
+            VertexController to = path[i+1];
+            Debug.Log(from + ", " + to);
+            EdgeController edge = EdgeControllers.Find(e => e.Vertices.Contains(from) && e.Vertices.Contains(to));
+            Debug.Log(edge);
+            edge.GetComponent<LineRenderer>().startColor = Color.red;
+            edge.GetComponent<LineRenderer>().endColor = Color.red; 
+        }
     }
 }

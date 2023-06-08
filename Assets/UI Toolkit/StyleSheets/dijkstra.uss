@@ -1,0 +1,53 @@
+.dijkstra-element {
+    height: 100%;
+    width: 100%;
+}
+
+.run-button {
+    width: 70%;
+    height: 42px;
+    bottom: 10%;
+    left: 15%;
+    top: 170px;
+    right: 15%;
+    -unity-font-style: bold;
+    font-size: 16px;
+    min-width: 125px;
+    min-height: 42px;
+    position: absolute;
+    max-height: 42px;
+}
+
+.start-box {
+    top: 30px;    
+}
+
+.end-box {
+    top: 100px;
+}
+
+.ghost-icon {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    visibility: hidden;
+}
+
+.dijkstra-parent {
+    width: 200px;
+    height: 240px;
+}
+
+.select-box {
+    width: 50px;
+    height: 50px;
+    left: 75px;
+    right: 75px;
+    position: absolute;
+    background-color: rgb(96, 97, 99);
+}
+
+.dijkstra-parent {
+    width: 200px;
+    height: 240px;
+}
