@@ -11,6 +11,7 @@ public class VertexStateManager : MonoBehaviour
     public VertexBaseState CurrentState { get; private set; }
     public VertexNormalState NormalState = new VertexNormalState();
     public VertexConnectState ConnectState = new VertexConnectState();
+    public VertexSelectableState SelectableState = new VertexSelectableState();
 
     void Awake()
     {

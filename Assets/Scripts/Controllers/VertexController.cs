@@ -9,7 +9,7 @@ public class VertexController : GraphElement
     public static VertexStateManager stateManager;
     private LineRenderer lr;
 
-    private VertexAppearance _appearance;
+    private VertexAppearance appearance;
 
     private void Start()
     {
@@ -67,8 +67,7 @@ public class VertexController : GraphElement
         PointerEventData pointerData = data as PointerEventData;
         if(pointerData.pointerId == -1)
         {
-            Debug.Log("LeftClick on Vertex");
-            GraphManager.Instance.SelectVertex(this);
+            stateManager.CurrentState.ClickEvent(this);
         } else if(pointerData.pointerId == -2)
         {
             Debug.Log("RightClick on Vertex");
@@ -100,7 +99,7 @@ public class VertexController : GraphElement
 
     internal void SetAppearance(VertexAppearance appearance)
     {
-        _appearance = appearance;
+        this.appearance = appearance;
         if (appearance.Equals(VertexAppearance.NORMAL)) 
         {
             gameObject.GetComponent<SpriteRenderer>().color = Color.white;

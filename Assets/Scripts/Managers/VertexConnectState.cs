@@ -24,4 +24,9 @@ public class VertexConnectState : VertexBaseState
     {
         vertex.CheckForConnectionAtPosition(pos);
     }
+
+    public override void ClickEvent(VertexController vertex)
+    {
+        
+    }
 }
